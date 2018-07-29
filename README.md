@@ -21,7 +21,7 @@ Export two functions and one type.
 - `validate` return `Result (List error) subject` that is validated `subject`.
 
 ```elm
-import Validator exposing (Rule, rule)
+import Validator exposing (Rule, rule, validate)
 
 
 ageValidator : Rule String { age : Int }
