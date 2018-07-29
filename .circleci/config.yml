@@ -1,0 +1,45 @@
+version: 2
+
+# Settings common to each job.
+anchor_1: &defaults
+  working_directory: ~/elm-validator
+  docker:
+    - image: circleci/node:10
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install elm
+          command: 'sudo npm install -g elm --unsafe-perm=true --allow-root'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "elm-package.json" }}
+      - run: elm-package install -y
+      - save_cache:
+          key: dependency-cache-{{ checksum "elm-package.json" }}
+          paths:
+            - elm-stuff
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install elm
+          command: 'sudo npm install -g elm elm-test --unsafe-perm=true --allow-root'
+      - run:
+          name: Test
+          command: elm-test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
