@@ -1,4 +1,4 @@
-# elm-validator
+# elm-validator [![CircleCI](https://circleci.com/gh/pastelInc/elm-validator/tree/master.svg?style=svg)](https://circleci.com/gh/pastelInc/elm-validator/tree/master)
 
 Provide a validator for elm.
 
