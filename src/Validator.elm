@@ -51,6 +51,17 @@ rule { field, method, validWhen, error } =
 
 
 {-| Validate a subject using rules.
+
+    validate
+        [ rule
+            { field = .age
+            , method = (>) 18
+            , validWhen = True
+            , error = "Age must be greater than 18."
+            }
+        ]
+        { age = 18 }
+
 -}
 validate : List (Rule error subject) -> subject -> Result (List error) subject
 validate rules subject =
