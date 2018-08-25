@@ -1,7 +1,7 @@
-module Tests exposing (..)
+module Tests exposing (AgeOf, Error, Named, Status, getError, gt, isOk, mixLowercase, require, suite, validate)
 
 import Expect exposing (Expectation)
-import Fuzz exposing (Fuzzer, conditional, int, list, string)
+import Fuzz exposing (Fuzzer, int, list, string)
 import Regex
 import Test exposing (..)
 import Tuple
@@ -55,7 +55,10 @@ mixLowercase : Validator.Rule Error (Named x)
 mixLowercase =
     Validator.rule
         { field = .name
-        , method = Regex.contains (Regex.regex "[a-z]+")
+        , method =
+            Regex.contains <|
+                Maybe.withDefault Regex.never <|
+                    Regex.fromString "[a-z]+"
         , validWhen = True
         , error = ( "name", "Name must contains lowercase" )
         }

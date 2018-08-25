@@ -1,8 +1,9 @@
-module Validator exposing
-    ( Rule
-    , rule
-    , validate
-    )
+module Validator
+    exposing
+        ( Rule
+        , rule
+        , validate
+        )
 
 {-| This module supports validation.
 
@@ -65,16 +66,15 @@ rule { field, method, validWhen, error } =
 validate : List (Rule error subject) -> subject -> Result (List error) subject
 validate rules subject =
     List.foldl
-        (\a -> updateValidation a subject)
+        (flip updateValidation subject)
         (Ok subject)
         rules
 
 
 updateValidation : Rule error subject -> subject -> Result (List error) subject -> Result (List error) subject
-updateValidation ((Rule { error }) as rule_) subject result =
-    if validateField rule_ subject then
+updateValidation ((Rule { error }) as rule) subject result =
+    if validateField rule subject then
         result
-
     else
         updateError error result
 
