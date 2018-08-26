@@ -10,7 +10,7 @@ Provide a validator for elm.
 
 ## Installation
 
-    elm-package install pastelInc/elm-validator
+    elm install pastelInc/elm-validator
 
 ## Usage
 
@@ -54,7 +54,7 @@ ageErrors model =
 
 ## Tests
 
-    npm install -g elm-test
+    npm install -g elm-test@0.19.0-beta4
     elm-test
 
 ## Contributing
